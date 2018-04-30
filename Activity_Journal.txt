@@ -1,0 +1,146 @@
+4010-250 Project Journal
+C Health Monitoring System Project - Part 2
+
+Name: Meet Patel
+
+===========  Stage 1  ==========================================
+Start
+Estimated Time  0 30MM
+Plan:
+(Order of implementation, testing approach, estimation technique)
+- Get my parse function to work by looking at commas instead of indexes
+- Implement the charts like a linked list
+
+
+Complete
+Actual Time     0HH 30MM
+Observations:
+(Lessons learned, problems encountered, obstacles overcome, etc.)
+- had to learn to use ungetc
+- Had to mess around with pointers and -> until I got it to work
+- Ratio is 1. 
+===========  Stage 2  ==========================================
+Start
+Estimated Time  HH 30M
+Plan:
+(Order of implementation, testing approach, estimation technique)
+- I need to initialize a buffer by creating a new one
+- set start and end to 0 initially
+-append the buffer to the end
+
+Complete
+Actual Time     HH 30M
+Observations:
+(Lessons learned, problems encountered, obstacles overcome, etc.)
+- everything wokred as planned except I needed to debug a bit because
+I get getting segmentation faults
+- A lot of the functions were used in the linked list activity so
+that helped a lot so the ratio for this is only 1.
+
+===========  Stage 3  ==========================================
+Start
+Estimated Time  HH 20M
+Plan:
+(Order of implementation, testing approach, estimation technique)
+- I think it should work based on how I made my part 1
+
+Complete
+Actual Time     HH 20M
+Observations:
+(Lessons learned, problems encountered, obstacles overcome, etc.)
+- It worked without me really doing anything because my because
+I already had initialized my charts as a linked list. This is why 
+the ratio is only 1.
+===========  Stage 4  ==========================================
+Start
+Estimated Time	1 MM
+Plan:
+(Order of implementation, testing approach, estimation technique)
+- I want to copy my prints for command 6 from the last project
+and just implement it so you iterate through the buffers.
+Complete
+Actual Time	2H MM
+Observations:
+(Lessons learned, problems encountered, obstacles overcome, etc.)
+The ratio for this was 2 and it is very large because I had a very 
+tough time debugging because I initially wanted to go through the 
+buffers from 1 - 5 but then I realized that 2 was the only buffer I 
+had, so I kept getting segmentation faults. I over came this by
+adding a lot of print statements everywhere to find out exactly 
+where the segmentation fault was occurring.
+
+===========  Stage 5  ==========================================
+Start
+Estimated Time	20 MM
+Plan:
+(Order of implementation, testing approach, estimation technique)
+This, just like part 3 looks like it has already been done based
+on my implementation of the buffers as a linked list.
+
+Complete
+Actual Time	HH 20
+Observations:
+(Lessons learned, problems encountered, obstacles overcome, etc.)
+- There were not any problems encountered
+- time ratio was 1.0
+- I learned that if you implement you data structures wisely 
+beforehand you can save time after
+===========  Stage 6  ==========================================
+Start
+Estimated Time	30 MM
+Plan
+(Order of implementation, testing approach, estimation technique)
+- I feel that theres no reason it shouldnt work. If anything I can
+use prinf statements throughout my code to see where it messes up
+
+Complete
+Actual Time	1 hr MM
+Observations:
+(Lessons learned, problems encountered, obstacles overcome, etc.)
+- time ratio was 2 because I spent a lot of time debugging
+- I accidently wrote my variable wrong for getChart and I was 
+accidently indexing PatientList instead of foundChart
+
+===========  Stage 7  ==========================================
+Start
+Estimated Time	 30m
+Plan:
+(Order of implementation, testing approach, estimation technique)
+- I want to go through each buffer and free them individually
+then free that chart.
+- Make a freeChart helper function that just frees the buffers and
+not the chart.
+
+Complete
+Actual Time	45min
+Observations:
+(Lessons learned, problems encountered, obstacles overcome, etc.)
+-Time ratio was 1 becaue I didnt have too much trouble
+-I had a little trouble iterating through the nodes while also 
+freeing them.
+===========  PROJECT SUMMARY REFLECTION  =======================
+(Replace this text with a couple of paragraphs summarizing your
+experience with this project. What is too easy or too hard? What
+was the most challenging technical problem you faced? How
+did your estimated and actual time compare? Did your estimates
+improve as you advanced to later stages? Why or why not?)
+================================================================
+
+	I feel like this project was great at showing how we can
+do the same thing that we do with iterating through arrays but by
+using pointers and linked lists. I feel that this project was 
+very challenging and engaging while also being kind of frustrating
+at times but it wasnt too hard. The most challenging technical problem
+I faced was after I finished part 7, and I wanted to test using the 
+example test on the website, it always gave me a seg fault. This was
+wierd because the tests in part 6 are no different that the example
+up until you get to the remove patient part. It got me very frustrated
+so I changed my whole method of parsing from parsing from getchar until
+I reach a comma to just 1 line of scanf. I dont know how this helped fix
+the problem but it worked. 
+	The estimated time was fairly close to the actual time in this
+project because the steps were fairly straight forward in my opinion.
+Also, I didnt need to do anything for many of the steps because of the
+way I implemeented the linked list in the step before. My estimates 
+actually got less accurate in the later stages because sometimes it 
+got confusing to debug and that caused some delays.

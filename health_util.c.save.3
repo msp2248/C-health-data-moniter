@@ -1,0 +1,143 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "health.h"
+#include <string.h>
+
+/*
+* health_util.c - Helper functions for the Health Monitoring System
+*
+* Add any optional helper function declarations here, define 
+* the functions after the required functions below.
+*
+* static void myOptionalFunc();   // EXAMPLE 
+*
+*/
+
+/*
+* addPatient: check-in a new patient
+*   (1) allocate a new Chart for the patient
+*   (2) initialize the chart with the passed patientID
+*   (3) new patients are inserted at the start of the patient list
+*
+* (note that the variable patientList is globally accessible)
+*/
+void addPatient( int patientID ){
+	Chartptr cp = malloc(sizeof(Chart));
+	cp->id = patientID;
+	cp->next = patientList;
+	cp->buffer = NULL;
+	patientList = cp;
+}
+
+/*
+* addHealthType: add a new health type buffer for a given patient
+*	(1) allocate a new CircularBuffer
+*	(2) initialize the buffer
+* 	(3) link it to the existing patient's Chart
+*/
+void addHealthType( int patientID, int newType ){
+	Chartptr foundchart = getChart(patientID);
+	CBuffptr bufftype = malloc(sizeof(CircularBuffer));
+	bufftype -> type = newType;
+	bufftype -> end = 0;
+	bufftype -> start = 0;
+	bufftype -> next = foundchart -> buffer;
+	foundchart -> buffer = bufftype;
+}
+/*
+*  getChart: given a patientID, return a pointer to their Chart
+*/
+Chartptr getChart( int patientID ){
+	Chartptr foundChart = patientList;
+	while (foundChart -> id != patientID){
+		foundChart = foundChart -> next;
+	}
+	return foundChart;
+  }
+
+/* 
+*  getHealthType: given a patientID & healthType, return a pointer 
+*  to the CircularBuffer for that type. If the health type does NOT exist 
+*  for that patient, return NULL
+*/
+CBuffptr getHealthType( int patientID, int healthType ){
+	CBuffptr foundType = getChart(patientID) -> buffer;
+	while (foundType -> type != healthType && foundType){
+		foundType = foundType -> next;
+ 	}
+	return foundType;
+
+}
+
+/*
+*  addHealthReading: given a pointer to CircularBuffer, add the passed
+*  timestamp and health data type reading to the buffer
+*/
+void addHealthReading( CBuffptr buffer, char* timestamp, int reading ){
+	static int inc_start = 0;
+        if (buffer -> end == MAXREADINGS){
+                inc_start = 1;
+                buffer -> end = 0;
+        }
+        if (buffer -> start == MAXREADINGS){
+                buffer -> start == 0;
+        }
+        strcpy(buffer -> reading[buffer -> end].timestamp, timestamp);
+        buffer -> reading[buffer -> end].value = reading;
+        if (inc_start){
+                buffer -> start++;
+                buffer -> end++;
+        }
+        else{
+                buffer -> end++;
+        } 
+}
+
+/*
+*  removePatient: check-out an existing patient
+*	  (1) delete the patient's Chart & accompanying 
+*         health data readings.
+*     (2) update the list of current patients
+*/
+void removePatient( int patientID ){
+	Chartptr prevChart  = patientList;
+	Chartptr removeChart = getChart(patientID);
+	while (prevChart != removeChart && prevChart-> next != removeChart){
+		prevChart = prevChart -> next;
+	}
+	Chartptr nextChart = prevChart -> next -> next;
+	prevChart -> next = nextChart;
+	while (removeChart -> buffer != NULL){
+		free(removeChart -> buffer);
+	}
+	free(removeChart);
+}
+ 
+/*
+* Optional helper functions defined starting here:
+*
+* static void myOptionalFunc(){ }  // EXAMPLE
+* 
+*/
+
+void freeChart(int id){
+	Chartptr removeChart = getChart(id);
+	while (removeChart -> buffer != NULL){
+                	free(removeChart -> buffer);
+        	}
+
+}
+
+int search(int type, Chartptr c){
+	CBuffptr curr = c -> buffer;
+	while (curr != NULL){
+//		printf("TYPE sarch: %d", curr->type);
+		if (curr-> type == type){
+			return 1;
+		}
+		curr = curr-> next;
+	}
+	return 0;
+}
+
+
